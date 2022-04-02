@@ -67,11 +67,11 @@ router.post('/adventures', requireToken, (req, res, next)=>{
 router.patch('/adventures/:id', requireToken, removeBlanks, (req, res, next)=>{
     //if the client attempts to change the owner of the pet we can disallow that from the get go
     delete req.body.owner
-    //then find pet by id
+    //then find adventure by id
     Adventure.findById(req.params.id)
     //handle 404
     .then(handle404)
-    //require ownership and update pet
+    //require ownership and update adventure
     .then(adventure =>{
         requireOwnership(req, adventure)
         return adventure.updateOne(req.body.adventure)
@@ -80,6 +80,27 @@ router.patch('/adventures/:id', requireToken, removeBlanks, (req, res, next)=>{
     .then(()=>res.sendStatus(204))
     //pass to errorhandler if not successful
     .catch(next)
+})
+
+//REMOVE
+//DELETE /pets/624470c12ed7079ead53d4df
+router.delete('/adventures/:id', requireToken, (req, res, next) =>{
+    //find the adventure by id
+    Adventure.findById(req.params.id)
+        .then(handle404)
+        .then(adventure => {
+            //requireOwnership needs two arguments
+            //these are the request itself and the document itself
+            requireOwnership(req, adventure)
+            //we'll delete if the middleware doesn't throw an error
+            adventure.deleteOne()
+        })
+        .then(()=>res.sendStatus(204))
+    //first handle the 404 if any
+    //use requireownership middleware to make sure the right person is making the request
+    //send back a 204 no content status if error occurs
+    //if error occurs, pass to the handler
+        .catch(next)
 })
 
 
