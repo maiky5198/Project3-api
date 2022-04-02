@@ -14,7 +14,7 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 // POST -> create a comment
 // POST /comment/:advId
 // make a route the posts all the new comments 
-router.post('/comment/:adventureId', (req,res, next) => {
+router.post('/adventure:id', (req,res, next) => {
     // get the comment from the request body
     const  comment = req.body.comment
     // get the adventure id from the req.body.id
@@ -33,7 +33,7 @@ router.post('/comment/:adventureId', (req,res, next) => {
 })
 
 // Delete route for the comments
-router.delete('/delete/:commId', requireToken, (req,res, next) => {
+router.delete('/delete/:adventureId/:commId', requireToken, (req,res, next) => {
      // saving both ids to variables for easy ref later
      const commId = req.params.commId
      const adventureId = req.params.adventureId
