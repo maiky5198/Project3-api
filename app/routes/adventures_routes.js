@@ -36,6 +36,19 @@ router.get('/adventures', (req, res, next)=>{
         .catch(next)
 })
 
+//Get user's adventures
+router.get('/adventures/mine', requireToken, (req, res, next)=>{
+    Adventure.find({owner: req.user.id})
+    .populate('owner')
+        .then(adventures =>{
+            return adventures.map(adventure => adventure.toObject())
+        })
+        .then(adventures =>{
+            res.status(200).json({adventures: adventures})
+        })
+        .catch(next)
+})
+
 // SHOW
 // GET /adventures/62489de4569a9cb06f4303a4
 router.get('/adventures/:id', (req, res, next) => {
@@ -65,7 +78,7 @@ router.post('/adventures', requireToken, (req, res, next)=>{
 //UPDATE
 //PATCH /adventures/62489de4569a9cb06f4303a4
 router.patch('/adventures/:id', requireToken, removeBlanks, (req, res, next)=>{
-    //if the client attempts to change the owner of the pet we can disallow that from the get go
+    //if the client attempts to change the owner of the adventure we can disallow that from the get go
     delete req.body.owner
     //then find adventure by id
     Adventure.findById(req.params.id)
@@ -83,7 +96,7 @@ router.patch('/adventures/:id', requireToken, removeBlanks, (req, res, next)=>{
 })
 
 //REMOVE
-//DELETE /pets/624470c12ed7079ead53d4df
+//DELETE /adventures/624470c12ed7079ead53d4df
 router.delete('/adventures/:id', requireToken, (req, res, next) =>{
     //find the adventure by id
     Adventure.findById(req.params.id)
