@@ -16,6 +16,7 @@ const requireToken = passport.authenticate('bearer', {session: false})
 
 const removeBlanks = require('../../lib/remove_blank_fields')
 const { handle } = require('express/lib/application')
+const adventure = require('../models/adventure')
 
 const router = express.Router()
 
@@ -59,6 +60,26 @@ router.post('/adventures', requireToken, (req, res, next)=>{
         })
         //if an error occurs pass it to the error handler
         .catch(next)
+})
+
+//UPDATE
+//PATCH /adventures/62489de4569a9cb06f4303a4
+router.patch('/adventures/:id', requireToken, removeBlanks, (req, res, next)=>{
+    //if the client attempts to change the owner of the pet we can disallow that from the get go
+    delete req.body.owner
+    //then find pet by id
+    Adventure.findById(req.params.id)
+    //handle 404
+    .then(handle404)
+    //require ownership and update pet
+    .then(adventure =>{
+        requireOwnership(req, adventure)
+        return adventure.updateOne(req.body.adventure)
+    })
+    //send a 204 no content if successful 
+    .then(()=>res.sendStatus(204))
+    //pass to errorhandler if not successful
+    .catch(next)
 })
 
 
