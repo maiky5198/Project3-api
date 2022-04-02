@@ -35,6 +35,18 @@ router.get('/adventures', (req, res, next)=>{
         .catch(next)
 })
 
+// SHOW
+// GET /adventures/62489de4569a9cb06f4303a4
+router.get('/adventures/:id', (req, res, next) => {
+    // we get the id from req.params.id -> :id
+    Adventure.findById(req.params.id)
+        .then(handle404)
+        // if its successful, respond with an object as json
+        .then(adventure => res.status(200).json({ adventure: adventure.toObject() }))
+        // otherwise pass to error handler
+        .catch(next)
+})
+
 //CREATE
 //POST /adventures
 router.post('/adventures', requireToken, (req, res, next)=>{
