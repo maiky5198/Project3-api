@@ -3,6 +3,8 @@ const passport = require('passport')
 
 const customErrors = require('../../lib/custom_errors')
 
+const Adventure = require('../models/adventure')
+
 //this function sends a 404 when non-existent document is requested
 const handle404 = customErrors.handle404
 
@@ -21,7 +23,7 @@ const router = express.Router()
 
 //INDEX ROUTE
 //Get adventures 
-router.get('/adventures', (req, res)=>{
+router.get('/adventures', (req, res, next)=>{
     Adventure.find()
     .populate('owner')
         .then(adventures =>{
