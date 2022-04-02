@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const gearSchema = require('./gear')
+const commentSchema = require('./comment')
 
 const adventureSchema = new mongoose.Schema(
 	{
@@ -33,11 +35,13 @@ const adventureSchema = new mongoose.Schema(
 			longitude: [{type: Number}],
 			//required: true,
 		},
-		owner: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User',
+		gear: [gearSchema],
+		comment: [commentSchema],
+        owner: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
 			required: true,
-		},
+        }
 	},
 	{
 		timestamps: true,
