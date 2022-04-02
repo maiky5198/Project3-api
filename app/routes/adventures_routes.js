@@ -35,6 +35,20 @@ router.get('/adventures', (req, res, next)=>{
         .catch(next)
 })
 
+//CREATE
+//POST /adventures
+router.post('/adventures', requireToken, (req, res, next)=>{
+    //we brought in requreToken so we can have access to req.user
+    req.body.adventure.owner = req.user.id
+    Adventure.create(req.body.adventure)
+        .then(adventure =>{
+            //send a successful response like this
+            res.status(201).json({ adventure: adventure.toObject() })
+        })
+        //if an error occurs pass it to the error handler
+        .catch(next)
+})
+
 
 //ROUTES ABOVE HERE
 
