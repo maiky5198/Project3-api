@@ -22,3 +22,11 @@
 | POST   |   /sign-in                   | Create |  Create user session         |  user   |
 | UPDATE |   /change-password           | Update |  Update password             |  user   |
 | DELETE |   /sign-out                  | Delete | Signs out user ending session|  user   |
+
+# Tech Stack
+
+- Javascript
+- Node.js
+- Express
+- Mongoose
+- MongoDB
