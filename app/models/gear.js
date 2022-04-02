@@ -1,5 +1,6 @@
+// import dependecies
 const mongoose = require('mongoose')
-
+// just a schema not a model so will use standard syntax
 const gearSchema = new mongoose.Schema({
     name: {
         type: String,
