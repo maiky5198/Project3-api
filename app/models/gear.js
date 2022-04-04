@@ -7,9 +7,9 @@ const gearSchema = new mongoose.Schema({
         required: true
     },
     quantity: {
-        tpye: Number,
-        required: true,
-        min: 1
+        type: Number,
+        min: 1,
+        required: true
     },    
     description: {
          type: String
