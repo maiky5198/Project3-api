@@ -38,7 +38,7 @@ const adventureSchema = new mongoose.Schema(
 			//required: true,
 		},
 		gear: [gearSchema],
-		comment: [commentSchema],
+		comments: [commentSchema],
         owner: {
             type: Schema.Types.ObjectId,
             ref: 'User'
