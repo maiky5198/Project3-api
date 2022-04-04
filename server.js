@@ -8,6 +8,7 @@ const cors = require('cors')
 const userRoutes = require('./app/routes/user_routes')
 const commentRoute = require('./app/routes/comment_routes')
 const adventureRoutes = require('./app/routes/adventures_routes')
+const gearRoutes = require('./app/routes/gear_routes')
 
 // require middleware
 const errorHandler = require('./lib/error_handler')
@@ -71,6 +72,7 @@ app.use(requestLogger)
 app.use(userRoutes)
 app.use(commentRoute)
 app.use(adventureRoutes)
+app.use(gearRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be

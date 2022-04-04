@@ -26,67 +26,61 @@ router.post('/gear/:adventureId', requireToken, (req, res, next)=>{
     //find the adventure
     Adventure.findById(adventureId)
         .then(handle404)
-    //push the toy to the toys array
+    //push the gear to the gear array
         .then(adventure => {
             console.log('this is the adventure', adventure)
             console.log('this is the gear', gear)
+            requireOwnership(req, adventure)
             adventure.gear.push(gear)
             //save the adventure
             return adventure.save()
         })
-    //then we send the pet as json
+    //then we send the adventure as json
         .then(adventure => res.status(201).json({adventure: adventure}))
     //catch errors and send to the handler
         .catch(next)
 })
-// //PATCH -> update a toy
-// //PATCH /toys/<pet_id>/<toy_id>
-// router.patch('/toys/:petId/:toyId', requireToken, removeBlanks, (req, res, next)=>{
-//     const toyId = req.params.toyId
-//     const petId = req.params.petId
+// //PATCH -> update a piece of gear
+//PATCH /gear/<adventure_id>/<gear_id>
+router.patch('/gear/:adventureId/:gearId', requireToken, removeBlanks, (req, res, next)=>{
+    const gearId = req.params.gearId
+    const adventureId = req.params.adventureId
 
-//     Pet.findById(petId)
-//         .then(handle404)
-//         .then(pet => {
-//             const theToy = pet.toys.id(toyId)
-//             console.log('this is the original toy')
-//             requireOwnership(req, pet)
-//             theToy.set(req.body.toy)
-//             return pet.save()
-//             // return {theToy, pet}
-//         })
-//         // .then(data => {
-//         //     console.log('this is data', data)
-//         //     data.theToy.set({toy: req.body.toy})
-//         //     console.log('the toy after set', data.theToy)
-//         //     return data.pet.save()
-//         // })
-//         .then(()=> res.sendStatus(204))
-//         .catch(next)
-// })
-// //DELETE -> delete a toy
-// //DELETE /toys/<pet_id>/<toy_id>
-// router.delete('/toys/:petId/:toyId', requireToken, (req, res, next)=>{
-//     const toyId = req.params.toyId
-//     const petId = req.params.petId
-//     //find the pet in the database
-//     Pet.findById(petId)
-//         //if pet not found 404
-//         .then(handle404)
-//         .then(pet => {
-//             //get the subdocument by its id
-//             const theToy =  pet.toys.id(toyId)
-//             //require that the deleter is the owner of the pet
-//             requireOwnership(req, pet)
-//             //call remove on the toy we got on the line above requireOwnership
-//             theToy.remove()
-//             //return the saved pet
-//             return pet.save()
-//         })
-//         //send 204 no content
-//         .then(() => res.sendStatus(204))
-//         .catch(next)
-// })
+    Adventure.findById(adventureId)
+        .then(handle404)
+        .then(adventure => {
+            const theGear = adventure.gear.id(gearId)
+            console.log('this is the original gear')
+            requireOwnership(req, adventure)
+            theGear.set(req.body.gear)
+            return adventure.save()
+        })
+        .then(()=> res.sendStatus(204))
+        .catch(next)
+})
+//DELETE -> delete a piece of gear
+//DELETE /gear/<adventure_id>/<gear_id>
+router.delete('/gear/:adventureId/:gearId', requireToken, (req, res, next)=>{
+    const gearId = req.params.gearId
+    const adventureId = req.params.adventureId
+    //find the adventure in the database
+    Adventure.findById(adventureId)
+        //if adventure not found 404
+        .then(handle404)
+        .then(adventure => {
+            //get the subdocument by its id
+            const theGear =  adventure.gear.id(gearId)
+            //require that the deleter is the owner of the adventure
+            requireOwnership(req, adventure)
+            //call remove on the gear we got on the line above requireOwnership
+            theGear.remove()
+            //return the saved adventure
+            return adventure.save()
+        })
+        //send 204 no content
+        .then(() => res.sendStatus(204))
+        .catch(next)
+})
 
 
 
