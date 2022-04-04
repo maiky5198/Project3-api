@@ -39,6 +39,28 @@ router.post('/comments/:adventureId', requireToken, (req,res, next) => {
 
 // Delete route for the comments
 router.delete('/comments/:adventureId/:commId', requireToken, (req,res, next) => {
+  
+router.post('/adventure/:id', removeBlanks, (req, res, next) => {
+    // get the comment from the request body
+    const  comment = req.body.comment
+    // get the adventure id from the req.body.id
+    const adventureId =req.params.adventureId 
+    // find the adventure
+    Adventure.find(adventureId)
+        .then(handle404)
+        .then(adventure => {
+            adventure.comments.push(comment)
+
+            // save the adventure
+            return adventure.save()
+        })
+        .then(adventure => res.status(201).json({adventure: adventure}))
+        .catch(next)
+})
+
+// Delete route for the comments
+router.delete('/delete/:adventureId/:commId', requireToken, (req, res, next) => {
+  
      // saving both ids to variables for easy ref later
      const commId = req.params.commId
      const adventureId = req.params.adventureId
