@@ -3,11 +3,7 @@ const express = require('express')
 const passport = require('passport')
 const Comment = require('../models/comment')
 const Adventure = require ('../models/adventure')
-<<<<<<< HEAD
 const router = express.router()
-=======
-const router = express.Router()
->>>>>>> main
 const customErrors = require('../../lib/custom_errors')
 
 const handle404 = customErrors.handle404
