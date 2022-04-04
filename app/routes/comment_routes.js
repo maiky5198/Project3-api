@@ -1,8 +1,8 @@
 // import dependencies 
-const express = require('expresss')
+const express = require('express')
 const passport = require('passport')
 const Comment = require('../models/comment')
-const Adventure = requiure ('../models/adventure')
+const Adventure = require ('../models/adventure')
 const router = express.router()
 const customErrors = require('../../lib/custom_errors')
 
@@ -18,7 +18,7 @@ router.post('/adventure:id', (req,res, next) => {
     // get the comment from the request body
     const  comment = req.body.comment
     // get the adventure id from the req.body.id
-    const adventureId =req.paramsa.adventureId 
+    const adventureId =req.params.adventureId 
     // find the adventure
     Adventure.find(adventureId)
         .then(handle404)
