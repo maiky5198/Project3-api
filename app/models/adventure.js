@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 const gearSchema = require('./gear')
 const commentSchema = require('./comment')
 
+const { Schema, model } = mongoose
+
 const adventureSchema = new mongoose.Schema(
 	{
 		name: {
@@ -39,8 +41,7 @@ const adventureSchema = new mongoose.Schema(
 		comment: [commentSchema],
         owner: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
-			required: true,
+            ref: 'User'
         }
 	},
 	{

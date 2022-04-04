@@ -3,7 +3,11 @@ const express = require('express')
 const passport = require('passport')
 const Comment = require('../models/comment')
 const Adventure = require ('../models/adventure')
+<<<<<<< HEAD
 const router = express.router()
+=======
+const router = express.Router()
+>>>>>>> main
 const customErrors = require('../../lib/custom_errors')
 
 const handle404 = customErrors.handle404
@@ -45,7 +49,7 @@ router.delete('/delete/:adventureId/:commId', requireToken, (req,res, next) => {
              // get the specific subdocument by its id
              const theComment = adventure.comment.id(commId)
              // require that the deleter is the owner of the pet
-             requireOwnership(req, pet)
+             requireOwnership(req, adventure)
              // call remove on the toy we got on the line above requireOwnership
              theComment.remove()
  
