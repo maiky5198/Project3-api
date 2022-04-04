@@ -1,8 +1,8 @@
 // import dependencies 
-const express = require('expresss')
+const express = require('express')
 const passport = require('passport')
 const Comment = require('../models/comment')
-const Adventure = requiure ('../models/adventure')
+const Adventure = require ('../models/adventure')
 const router = express.router()
 const customErrors = require('../../lib/custom_errors')
 
