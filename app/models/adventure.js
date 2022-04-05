@@ -29,14 +29,14 @@ const adventureSchema = new mongoose.Schema(
 			required: true,
 		},
 		location: {
-			type: String,
+			type: Number,
 			required: true,
 		},
-		geolocation: {
-			latititude: [{type: Number}],
-			longitude: [{type: Number}],
-			//required: true,
-		},
+		// geolocation: {
+		// 	latititude: [{type: Number}],
+		// 	longitude: [{type: Number}],
+		// 	required: true,
+		// },
 		gear: [gearSchema],
 		comments: [commentSchema],
         owner: {
