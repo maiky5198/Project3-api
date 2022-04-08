@@ -10,8 +10,6 @@ const gearSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1,
-        min: 1,
-        required: true
     },    
     description: {
          type: String
