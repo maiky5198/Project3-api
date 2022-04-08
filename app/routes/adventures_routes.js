@@ -49,6 +49,19 @@ router.get('/adventures/mine', requireToken, (req, res, next)=>{
         .catch(next)
 })
 
+//Get Index of a specific user's adventures
+router.get('/adventures/user/:ownerId', (req, res, next)=>{
+    Adventure.find({owner: req.params.ownerId})
+    .populate('owner')
+        .then(adventures =>{
+            return adventures.map(adventure => adventure.toObject())
+        })
+        .then(adventures =>{
+            res.status(200).json({adventures: adventures})
+        })
+        .catch(next)
+})
+
 // SHOW
 // GET /adventures/62489de4569a9cb06f4303a4
 router.get('/adventures/:id', (req, res, next) => {

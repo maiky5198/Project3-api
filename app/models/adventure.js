@@ -2,11 +2,16 @@ const mongoose = require('mongoose')
 const gearSchema = require('./gear')
 const commentSchema = require('./comment')
 
+const { Schema, model } = mongoose
+
 const adventureSchema = new mongoose.Schema(
 	{
 		name: {
 			type: String,
 			required: true,
+		},
+		description: {
+			type: String
 		},
 		type: {
 			type: String,
@@ -27,20 +32,14 @@ const adventureSchema = new mongoose.Schema(
 			required: true,
 		},
 		location: {
-			type: String,
+			type: Number,
 			required: true,
-		},
-		geolocation: {
-			latititude: [{type: Number}],
-			longitude: [{type: Number}],
-			//required: true,
 		},
 		gear: [gearSchema],
-		comment: [commentSchema],
+		comments: [commentSchema],
         owner: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
-			required: true,
+            ref: 'User'
         }
 	},
 	{
