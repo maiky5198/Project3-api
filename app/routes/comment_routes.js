@@ -1,8 +1,10 @@
 // import dependencies 
 const express = require('express')
 const passport = require('passport')
+const Comment = require('../models/comment')
 const Adventure = require ('../models/adventure')
-const router = express.Router()
+const router = express.router()
+
 const customErrors = require('../../lib/custom_errors')
 
 const handle404 = customErrors.handle404
