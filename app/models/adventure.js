@@ -10,6 +10,9 @@ const adventureSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		description: {
+			type: String
+		},
 		type: {
 			type: String,
 			required: true,
@@ -32,11 +35,6 @@ const adventureSchema = new mongoose.Schema(
 			type: Number,
 			required: true,
 		},
-		// geolocation: {
-		// 	latititude: [{type: Number}],
-		// 	longitude: [{type: Number}],
-		// 	required: true,
-		// },
 		gear: [gearSchema],
 		comments: [commentSchema],
         owner: {
